@@ -1,19 +1,37 @@
-<h1>
-  <%= gravatar_for @user %>
-  <%= @user.name %>
-</h1>
-
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+       <%= gravatar_for @user %>
+       <%= @user.name %>
+     </h1>
 
-    <%= form_for(@user) do |f| %>
-
-      <%= f.label :profile %>
-      <%= f.text_field :profile, class: 'form-control', readonly: true %>
-  
-      <%= f.label :area %>
-      <%= f.text_field :area, class: 'form-control', readonly: true %>
-
-    <% end %>
+  </section>
+    </aside>
+     <div class="col-md-8">
+       <% if @user.microposts.any? %>
+      <h3>Microposts (
+         <%= @user.microposts.count %>
+      )</h3>
+      
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+<% end %>
   </div>
 </div>
+
+<!-- <div class="row"> -->
+<!--   <div class="col-md-6 col-md-offset-3">-->
+
+    <%#= form_for(@user) do |f| %>
+
+      <%#= f.label :profile %>
+      <%#= f.text_field :profile, class: 'form-control', readonly: true %>
+  
+      <%#= f.label :area %>
+      <%#= f.text_field :area, class: 'form-control', readonly: true %>
+
+    <%# end %>
+<!--  </div>-->
+<!--</div>-->

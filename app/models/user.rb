@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
     
     validates :profile, allow_blank: true, length: { maximum: 255 }
     validates :area, allow_blank: true, length: { maximum: 255 }
+    has_many :microposts
 end
