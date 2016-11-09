@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update]
   before_action :correct_user, only: [:edit, :update]
-
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,
+                                        :following, :followers]
+                                        
   def show # 追加
    @user = User.find(params[:id])
    @microposts = @user.microposts.order(created_at: :desc)
@@ -35,6 +37,25 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  
+  def following
+    @title = "Following"
+    @user  = User.find(params[:id])
+    @users = @user.following_users(:followed)
+    #@users = @user.following_users(:followed)
+    render 'follow_show'
+  end
+
+  def followers
+    @title = "Followers"
+    @user  = User.find(params[:id])
+    @users = @user.follower_users(:followed)
+    #@users = @user.followers(followed_id)
+    #@users = @user.follow(page: params[:page])
+    render 'follow_show'
+  end
+  
 
   private
 
