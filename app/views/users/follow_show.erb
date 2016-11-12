@@ -28,6 +28,9 @@
            <ol class="users follow">
              <% @users.each do |user| %>
              <%= user.name %>
+             <%= link_to gravatar_for(user, size: 50), user %>
+             <br>
+             <br>
              <br>
              <% end %>
            </ol>
