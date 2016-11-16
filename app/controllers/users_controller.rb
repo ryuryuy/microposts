@@ -6,7 +6,7 @@ class UsersController < ApplicationController
                                         
   def show # 追加
    @user = User.find(params[:id])
-   @microposts = @user.microposts.order(created_at: :desc)
+   @microposts = @user.microposts.order(created_at: :desc).page(params[:page])
   end
 
   def new
@@ -42,20 +42,28 @@ class UsersController < ApplicationController
   def following
     @title = "Following"
     @user  = User.find(params[:id])
-    @users = @user.following_users(:followed)
+    @users_all = @user.following_users
+    @users = @user.following_users.page(params[:page])
     #@users = @user.following_users(:followed)
+    #@users = @user.following_users(page: params[:page])
     render 'follow_show'
   end
 
   def followers
     @title = "Followers"
     @user  = User.find(params[:id])
-    @users = @user.follower_users(:followed)
+    @users_all = @user.follower_users
+    @users = @user.follower_users.page(params[:page])
     #@users = @user.followers(followed_id)
     #@users = @user.follow(page: params[:page])
+    #@users = @user.follower_users.paginate(page: params[:page])
+    #@users = @user.follower_users(page: params[:page])
     render 'follow_show'
   end
   
+    def index
+    @users = @user.follower_users.page(params[:page]).page(2)
+    end
 
   private
 

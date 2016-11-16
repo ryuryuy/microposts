@@ -7,7 +7,7 @@
       <%= render 'shared/stats' %>
       <% if @users.any? %>
         <div class="user_avatars">
-          <% @users.each do |user| %>
+          <% @users_all.each do |user| %>
             <%= link_to gravatar_for(user, size: 30), user %>
           <% end %>
         </div>
@@ -20,6 +20,7 @@
       <h3>follow List</h3>
       <ol class="users-follow">
         <%= render @users %>
+        <%= paginate @users %>
       </ol>
     <% end %>
   </div>
